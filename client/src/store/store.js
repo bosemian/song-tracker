@@ -33,5 +33,4 @@ export default new Vuex.Store({
       commit('setUser', user)
     }
   }
-
 })

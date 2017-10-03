@@ -5,52 +5,37 @@
         <v-toolbar flat dense class="cyan" dark>
           <v-toolbar-title>Register</v-toolbar-title>
         </v-toolbar>
-        <div class="pl-4 pr-4 pt-2 pb-2">
-          <form name="tab-tracker-form" autocomplete="">
-            <v-text-field
-              label="Email"
-              v-model="email">
-            </v-text-field>
-            <v-text-field
-                label="Password"
-                type="password"
-                v-model="password">
-            </v-text-field>
-            <br>
-            <div class="error" v-html="error" />
-            <br>
-            <v-btn
-              dark
-              class="cyan"
-              @click="register">
-              Register
-            </v-btn>
-          </form>
-        </div>
+        <form-auth @register="register" v-model="form"/>
       </div>
     </v-flex>
   </v-layout>
 </template>
 
+
 <script>
 import { Auth } from '@/services'
+const Form = () => import('@/components/Auth/Form')
 
 export default {
+  components: {
+    FormAuth: Form
+  },
+
   data () {
     return {
-      email: '',
-      password: '',
-      error: null
+      form: {
+        email: '',
+        password: '',
+        error: null
+      }
     }
   },
 
   methods: {
     async register () {
       try {
-        const res = await Auth.register({
-          email: this.email,
-          password: this.password
-        })
+        const { email, password } = this.form
+        const res = await Auth.register({ email, password })
         this.$store.dispatch('setToken', res.data.token)
         this.$store.dispatch('setUser', res.data.user)
       } catch (err) {

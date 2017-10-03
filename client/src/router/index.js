@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import Register from '@/components/Register'
-import Login from '@/components/Login'
+
+const Hello = () => import('@/components/Hello')
+const Register = () => import('@/components/Register')
+const Login = () => import('@/components/Login')
 
 Vue.use(Router)
 
