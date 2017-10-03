@@ -9,11 +9,18 @@ function jwtSignUser (user) {
   })
 }
 
+function parseToJson (data) {
+  return data.toJSON()
+}
+
 module.exports = {
   async register (req, res) {
     try {
       const user = await User.create(req.body)
-      res.send(user.toJSON())
+      res.send({
+        user: parseToJson(user),
+        token: jwtSignUser(parseToJson(user))
+      })
     } catch (err) {
       // email already exits
       res.status(400).send({
@@ -36,7 +43,7 @@ module.exports = {
           error: 'The login information was incorrect'
         })
       }
-      const isPasswordValid = password === user.password
+      const isPasswordValid = await user.comparePassword(password)
       // password not exits
       if (!isPasswordValid) {
         return res.status(403).send({
@@ -44,10 +51,9 @@ module.exports = {
         })
       }
       // return user
-      const userJson = user.toJSON()
       res.send({
-        user: userJson,
-        token: jwtSignUser(userJson)
+        user: parseToJson(user),
+        token: jwtSignUser(parseToJson(user))
       })
     } catch (err) {
       // error unexpected
