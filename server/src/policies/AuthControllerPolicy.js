@@ -17,7 +17,7 @@ module.exports = {
             error: 'You must provide a valid email address'
           })
           break
-        case 'paassword':
+        case 'password':
           res.status(400).send({
             error: `The password provide failed to match the following rules:
               <br>
