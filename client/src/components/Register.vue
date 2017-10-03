@@ -3,16 +3,22 @@
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-tool-title>Register</v-tool-title>
+          <v-toolbar-title>Register</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-2 pb-2">
-          <input type="text" name="email" v-model="email" placeholder="email" />
-          <br>
-          <input type="password" name="password" v-model="password" placeholder="password" />
+          <v-text-field
+              label="Email"
+              v-model="email">
+          </v-text-field>
+          <v-text-field
+              label="Password"
+              v-model="password">
+          </v-text-field>
           <br>
           <div class="error" v-html="error" />
           <br>
           <v-btn
+            dark
             class="cyan"
             @click="register">
             Register
