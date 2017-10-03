@@ -44,15 +44,18 @@ export default {
   methods: {
     async login () {
       try {
-        await Auth.login({
+        const res = await Auth.login({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', res.data.token)
+        this.$store.dispatch('setUser', res.data.user)
       } catch (err) {
         this.error = err.response.data.error
       }
       this.email = ''
       this.password = ''
+      alert('success')
     }
   }
 }

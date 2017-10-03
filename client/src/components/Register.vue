@@ -6,23 +6,26 @@
           <v-toolbar-title>Register</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-2 pb-2">
-          <v-text-field
+          <form name="tab-tracker-form" autocomplete="">
+            <v-text-field
               label="Email"
               v-model="email">
-          </v-text-field>
-          <v-text-field
-              label="Password"
-              v-model="password">
-          </v-text-field>
-          <br>
-          <div class="error" v-html="error" />
-          <br>
-          <v-btn
-            dark
-            class="cyan"
-            @click="register">
-            Register
-          </v-btn>
+            </v-text-field>
+            <v-text-field
+                label="Password"
+                type="password"
+                v-model="password">
+            </v-text-field>
+            <br>
+            <div class="error" v-html="error" />
+            <br>
+            <v-btn
+              dark
+              class="cyan"
+              @click="register">
+              Register
+            </v-btn>
+          </form>
         </div>
       </div>
     </v-flex>
@@ -44,10 +47,12 @@ export default {
   methods: {
     async register () {
       try {
-        await Auth.register({
+        const res = await Auth.register({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', res.data.token)
+        this.$store.dispatch('setUser', res.data.user)
       } catch (err) {
         this.error = err.response.data.error
       }
