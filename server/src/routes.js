@@ -1,4 +1,5 @@
 const AuthController = require('./controller/AuthController')
+const SongsController = require('./controller/SongsController')
 
 const AuthControllerPolicy = require('./policies/AuthControllerPolicy')
 
@@ -9,4 +10,10 @@ module.exports = (app) => {
 
   app.post('/login',
     AuthController.login)
+
+  app.get('/songs',
+    SongsController.index)
+
+  app.post('/songs',
+    SongsController.post)
 }
