@@ -1,12 +1,9 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2">
-        <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
-        </v-toolbar>
+      <panel title="Register">
         <form-auth @register="register" v-model="form"/>
-      </div>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
@@ -15,10 +12,12 @@
 <script>
 import { Auth } from '@/services'
 const Form = () => import('@/components/Auth/Form')
+const Panel = () => import('@/components/Panel')
 
 export default {
   components: {
-    FormAuth: Form
+    FormAuth: Form,
+    Panel
   },
 
   data () {
@@ -47,10 +46,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.error {
-  color: red;
-}
-</style>
-

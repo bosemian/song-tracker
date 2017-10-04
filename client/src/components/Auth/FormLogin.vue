@@ -1,12 +1,10 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2">
-        <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
+      <panel title="Login">
         <form-auth @login="login" v-model="form"/>
-      </div>
+        <app-alert v-if="error" :text="error" @dismissed="onDismissed" />
+      </panel>
     </v-flex>
   </v-layout>
 </template>
@@ -14,19 +12,21 @@
 <script>
 import { Auth } from '@/services'
 const Form = () => import('@/components/Auth/Form')
+const Panel = () => import('@/components/Panel')
 
 export default {
   components: {
-    FormAuth: Form
+    FormAuth: Form,
+    Panel
   },
 
   data () {
     return {
       form: {
         email: '',
-        password: '',
-        error: null
-      }
+        password: ''
+      },
+      error: null
     }
   },
 
@@ -40,16 +40,11 @@ export default {
       } catch (err) {
         this.error = err.response.data.error
       }
-      this.email = ''
-      this.password = ''
+    },
+
+    onDismissed () {
+      this.error = null
     }
   }
 }
 </script>
-
-<style scoped>
-.error {
-  color: red;
-}
-</style>
-

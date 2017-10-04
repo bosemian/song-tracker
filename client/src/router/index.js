@@ -4,6 +4,7 @@ import Router from 'vue-router'
 const Hello = () => import('@/components/Hello')
 const Register = () => import('@/components/Auth/FormRegister')
 const Login = () => import('@/components/Auth/FormLogin')
+const Songs = () => import('@/components/Songs')
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/songs',
+      name: 'song',
+      component: Songs
     }
   ]
 })
