@@ -17,7 +17,7 @@ export default new Vuex.Store({
       if (payload) {
         state.isUserLoggedIn = true
       } else {
-        state.isUserLoggedIn = true
+        state.isUserLoggedIn = false
       }
     },
     setUser (state, payload) {
@@ -31,6 +31,12 @@ export default new Vuex.Store({
     },
     setUser ({ commit }, user) {
       commit('setUser', user)
+    }
+  },
+
+  getters: {
+    getCurrentUser (state) {
+      return { ...state }
     }
   }
 })

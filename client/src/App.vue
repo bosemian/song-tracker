@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <v-app>
       <page-header />
       <main>
@@ -8,7 +8,7 @@
         </v-container>
       </main>
     </v-app>
-  </div>
+  </v-app>
 </template>
 
 <script>

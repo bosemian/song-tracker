@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 const Hello = () => import('@/components/Hello')
-const Register = () => import('@/components/Register')
-const Login = () => import('@/components/Login')
+const Register = () => import('@/components/Auth/FormRegister')
+const Login = () => import('@/components/Auth/FormLogin')
 
 Vue.use(Router)
 
