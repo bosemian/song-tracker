@@ -1,7 +1,7 @@
 <template>
   <v-toolbar class="cyan" dark fixed>
     <v-toolbar-title class="mr-4">
-      <router-link to="/" tag="span" exact>TabTracker</router-link>
+      <router-link to="/" class="tab-tracker" tag="span">TabTracker</router-link>
     </v-toolbar-title>
 
     <v-toolbar-items>
@@ -68,5 +68,7 @@ export default {
 </script>
 
 <style scoped>
+.tab-tracker {
+  cursor: pointer;
+}
 </style>
-
