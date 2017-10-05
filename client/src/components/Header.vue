@@ -40,9 +40,7 @@ export default {
         {title: 'Sign Up', link: '/register'}
       ]
       if (this.userIsAuth) {
-        menuItems = [
-          {title: 'Log Out', link: '/logout'}
-        ]
+        menuItems = []
       }
 
       return menuItems
@@ -60,6 +58,7 @@ export default {
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
+      localStorage.removeItem('token')
       // TODO Redirect to homepage
       this.$router.push('/')
     }

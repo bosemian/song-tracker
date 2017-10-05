@@ -15,9 +15,8 @@ const Form = () => import('@/components/Auth/Form')
 const Panel = () => import('@/components/Panel')
 
 export default {
-
   beforeRouteEnter: (to, from, next) => {
-    if (this.isAuth) {
+    if (localStorage.getItem('token')) {
       next(to.query.redirect || '/')
       return
     }

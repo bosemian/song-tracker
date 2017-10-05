@@ -8,7 +8,12 @@ const login = (credentials) => {
   return api().post('login', credentials)
 }
 
+const isAuth = () => {
+
+}
+
 export default {
   register,
-  login
+  login,
+  isAuth
 }

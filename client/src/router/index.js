@@ -10,7 +10,7 @@ const ViewSong = () => import('@/components/Songs/ViewSong')
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -35,7 +35,8 @@ export default new Router({
     {
       path: '/songs/create',
       name: 'songs-create',
-      component: CreateSong
+      component: CreateSong,
+      meta: { requiresAuth: true }
     },
     {
       path: '/songs/:id',
@@ -44,3 +45,16 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(x => x.meta.requiresAuth)) {
+    console.log('work')
+    if (!localStorage.getItem('token')) {
+      next({ path: '/login', query: { redirect: to.fullPath } })
+      return
+    }
+  }
+  next()
+})
+
+export default router

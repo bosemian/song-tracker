@@ -16,8 +16,7 @@ const Panel = () => import('@/components/Panel')
 
 export default {
   beforeRouteEnter: (to, from, next) => {
-    console.log(this.isAuth)
-    if (this.isAuth) {
+    if (localStorage.getItem('token')) {
       next(to.query.redirect || '/')
       return
     }
@@ -51,8 +50,9 @@ export default {
         const { email, password } = this.form
         const res = await Auth.login({ email, password })
         this.$store.dispatch('setToken', res.data.token)
+        localStorage.setItem('token', res.data.token)
         this.$store.dispatch('setUser', res.data.user)
-        this.$router.push('/')
+        this.$router.replace(this.$route.query.redirect || '/')
       } catch (err) {
         this.error = err.response.data.error
       }
