@@ -15,6 +15,21 @@ const Form = () => import('@/components/Auth/Form')
 const Panel = () => import('@/components/Panel')
 
 export default {
+
+  beforeRouteEnter: (to, from, next) => {
+    if (this.isAuth) {
+      next(to.query.redirect || '/')
+      return
+    }
+    next()
+  },
+
+  computed: {
+    isAuth () {
+      return this.$store.getters.getCurrentUser.isUserLoggedIn
+    }
+  },
+
   components: {
     FormAuth: Form,
     Panel

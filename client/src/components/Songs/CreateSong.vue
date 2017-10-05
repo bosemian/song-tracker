@@ -6,7 +6,7 @@
           :key="field.name"
           v-for="field in listField"
           :name="field.name"
-          @update="load"
+          @update="initialSubmit"
           v-model="song">
         </app-text-field>
       </panel>
@@ -35,8 +35,18 @@
 </template>
 
 <script>
+import { Song } from '@/services'
 const Panel = () => import('@/components/Panel')
+
 export default {
+  //  beforeRouteEnter: (to, from, next) => {
+  //   // TODO check state from user if null redirect to login
+  //   if (!this.isAuth) {
+  //     next({ path: '/login', query: { redirect: to.fullPath } })
+  //     return
+  //   }
+  //   next()
+  // },
   components: {
     Panel
   },
@@ -58,23 +68,35 @@ export default {
   computed: {
     listField () {
       let field = [
-        { name: 'title', val: '' },
-        { name: 'artist', val: '' },
-        { name: 'genre', val: '' },
-        { name: 'album', val: '' },
-        { name: 'albumImage', val: '' },
-        { name: 'youtubeId', val: '' }
+        { name: 'title' },
+        { name: 'artist' },
+        { name: 'genre' },
+        { name: 'album' },
+        { name: 'albumImage' },
+        { name: 'youtubeId' }
       ]
 
       return field
+    },
+
+    isAuth () {
+      return this.$store.getters.getCurrentUser
     }
   },
 
   methods: {
-    create () {
-      console.log(this.song)
+    async create () {
+      if (!this.song.title) {
+        return
+      }
+      try {
+        await Song.post(this.song)
+        this.$router.push('/songs')
+      } catch (error) {
+        console.log(error)
+      }
     },
-    load (name, value) {
+    initialSubmit (name, value) {
       let list = this.listField
       list.map((field) => {
         if (field.name === name) {

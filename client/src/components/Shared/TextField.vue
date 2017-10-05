@@ -2,6 +2,7 @@
   <v-text-field
     :label="name"
     :value="dataProp"
+    :rules="[required]"
     @input="update">
   </v-text-field>
 </template>
@@ -12,7 +13,8 @@ export default {
 
   data () {
     return {
-      dataProp: ''
+      dataProp: '',
+      required: (value) => !!value || 'Required.'
     }
   },
 
