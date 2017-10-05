@@ -27,6 +27,8 @@
         </v-text-field>
       </panel>
 
+      <app-alert v-if="error" :text="error" @dismissed="onDismissed" />
+
       <v-btn dark class="cyan" @click="create">
         Create Song
       </v-btn>
@@ -37,6 +39,7 @@
 <script>
 import { Song } from '@/services'
 const Panel = () => import('@/components/Panel')
+const AppAlert = () => import('@/components/Shared/Alert')
 
 export default {
   //  beforeRouteEnter: (to, from, next) => {
@@ -48,7 +51,8 @@ export default {
   //   next()
   // },
   components: {
-    Panel
+    Panel,
+    AppAlert
   },
 
   data () {
@@ -62,7 +66,8 @@ export default {
         youtubeId: null,
         lyrics: null,
         tab: null
-      }
+      },
+      error: null
     }
   },
   computed: {
@@ -86,7 +91,13 @@ export default {
 
   methods: {
     async create () {
-      if (!this.song.title) {
+      this.error = null
+      const allField = Object
+        .keys(this.song)
+        .every(key => !!this.song[key])
+
+      if (!allField) {
+        this.error = 'Please fill in all the required fills.'
         return
       }
       try {
@@ -103,6 +114,9 @@ export default {
           this.song[field.name] = value
         }
       })
+    },
+    onDismissed () {
+      this.error = null
     }
   }
 }

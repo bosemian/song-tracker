@@ -10,10 +10,33 @@
           </v-btn>
         </router-link>
 
-        <div v-for="song in songs" :key="song.id">
-          {{ song.title }}
-          {{ song.artist }}
-          {{ song.album }}
+        <div
+          class="song"
+          v-for="song in songs"
+          :key="song.id">
+          <v-layout>
+            <v-flex xs6>
+              <div class="song-title">
+                {{ song.title }}
+              </div>
+              <div class="song-artist">
+                {{ song.artist }}
+              </div>
+              <div class="song-genre">
+                {{ song.genre }}
+              </div>
+
+              <router-link
+                tag="span"
+                :to="{name: 'view-song', params: { id: song.id }}">
+                <v-btn dark class="cyan">view</v-btn>
+              </router-link>
+            </v-flex>
+
+            <v-flex xs6>
+              <img class="album-image" :src="song.albumImage" :alt="song.title">
+            </v-flex>
+          </v-layout>
         </div>
       </panel>
     </v-flex>
@@ -41,3 +64,28 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.song {
+  padding: 20px;
+  height: 330px;
+  overflow: hidden;
+}
+
+.song-title {
+  font-size: 30px;
+}
+
+.song-artist {
+  font-size: 24px;
+}
+
+.song-genre {
+  font-size: 18px;
+}
+
+.album-image {
+  width: 70%;
+  margin: 0 auto;
+}
+</style>

@@ -6,6 +6,7 @@ const Register = () => import('@/components/Auth/FormRegister')
 const Login = () => import('@/components/Auth/FormLogin')
 const Songs = () => import('@/components/Songs/Songs')
 const CreateSong = () => import('@/components/Songs/CreateSong')
+const ViewSong = () => import('@/components/Songs/ViewSong')
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/songs/create',
       name: 'songs-create',
       component: CreateSong
+    },
+    {
+      path: '/songs/:id',
+      name: 'view-song',
+      component: ViewSong
     }
   ]
 })
