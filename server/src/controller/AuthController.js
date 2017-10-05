@@ -10,7 +10,11 @@ function jwtSignUser (user) {
 }
 
 function parseToJson (data) {
-  return data.toJSON()
+  const obj = data.toJSON()
+  return {
+    id: obj.id,
+    email: obj.email
+  }
 }
 
 module.exports = {
@@ -51,6 +55,7 @@ module.exports = {
         })
       }
       // return user
+      console.log('new user', parseToJson(user))
       res.send({
         user: parseToJson(user),
         token: jwtSignUser(parseToJson(user))
