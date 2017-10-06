@@ -5,8 +5,9 @@ const Hello = () => import('@/components/Hello')
 const Register = () => import('@/components/Auth/FormRegister')
 const Login = () => import('@/components/Auth/FormLogin')
 const Songs = () => import('@/components/Songs/Songs')
-const CreateSong = () => import('@/components/Songs/CreateSong')
-const ViewSong = () => import('@/components/Songs/ViewSong')
+const SongCreate = () => import('@/components/Songs/SongCreate')
+const SongView = () => import('@/components/Songs/SongView')
+const SongEdit = () => import('@/components/Songs/SongEdit')
 
 Vue.use(Router)
 
@@ -38,13 +39,18 @@ const router = new Router({
     {
       path: '/songs/create',
       name: 'songs-create',
-      component: CreateSong,
+      component: SongCreate,
       meta: { requiresAuth: true }
     },
     {
       path: '/songs/:id',
-      name: 'view-song',
-      component: ViewSong
+      name: 'song-view',
+      component: SongView
+    },
+    {
+      path: '/songs/:id/edit',
+      name: 'song-edit',
+      component: SongEdit
     }
   ]
 })
