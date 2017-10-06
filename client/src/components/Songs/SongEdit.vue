@@ -1,65 +1,21 @@
 <template>
   <v-layout>
-    <v-flex xs4>
-      <panel title="Song Metadata">
-        <app-text-field
-          :key="field.name"
-          v-for="field in listField"
-          :name="field.name"
-          :song="song[field.name]"
-          @update="initialSubmit">
-        </app-text-field>
-      </panel>
-    </v-flex>
-
-    <v-flex xs8>
-      <panel title="Song Structure" class="ml-2">
-        <v-text-field
-          label="tabs"
-          multi-line
-          v-model="song.tab">
-        </v-text-field>
-
-        <v-text-field
-          label="lyrics"
-          multi-line=""
-          v-model="song.lyrics">
-        </v-text-field>
-      </panel>
-
-      <app-alert v-if="error" :text="error" @dismissed="onDismissed" />
-
-      <v-btn dark class="cyan" @click="save">
-        save
-      </v-btn>
-    </v-flex>
+    <song-form @save="save" v-model="song"></song-form>
   </v-layout>
 </template>
 
 <script>
 import { Song } from '@/services'
-const Panel = () => import('@/components/Shared/Panel')
-const AppAlert = () => import('@/components/Shared/Alert')
+const SongForm = () => import('@/components/Songs/SongForm')
 
 export default {
   components: {
-    Panel,
-    AppAlert
+    SongForm
   },
 
   data () {
     return {
-      song: {
-        title: null,
-        artist: null,
-        genre: null,
-        album: null,
-        albumImage: null,
-        youtubeId: null,
-        lyrics: null,
-        tab: null
-      },
-      error: null
+      song: null
     }
   },
 
@@ -83,14 +39,13 @@ export default {
     try {
       const song = await Song.show(songId)
       this.song = song
-      console.log(this.song)
     } catch (err) {
       console.log(err)
     }
   },
 
   methods: {
-    async save () {
+    async save (song) {
       this.error = null
       const allField = Object
         .keys(this.song)
@@ -101,7 +56,7 @@ export default {
         return
       }
       try {
-        await Song.put(this.song)
+        await Song.put(song)
         const songId = this.$store.state.route.params.id
         this.$router.push({ name: 'song-view', params: { id: songId } })
       } catch (error) {
