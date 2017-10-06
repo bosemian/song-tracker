@@ -1,6 +1,7 @@
 <template>
   <panel title="YouTube Video">
     <youtube
+      v-if="youtubeId"
       :video-id="youtubeId"
       :player-width="600"
       :player-height="330">

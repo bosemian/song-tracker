@@ -2,13 +2,53 @@
   <v-layout>
     <v-flex xs4>
       <panel title="Song Metadata">
-        <app-text-field
-          :key="field.name"
-          v-for="field in listFieldMeta"
-          :name="field.name"
-          :song="song[field.name]"
-          @update="initialSubmit">
-        </app-text-field>
+        <v-text-field
+          label="title"
+          :rules="[required]"
+          value="title"
+          v-model="title"
+          >
+        </v-text-field>
+
+         <v-text-field
+          label="artist"
+          :rules="[required]"
+          value="artist"
+          v-model="artist"
+          >
+        </v-text-field>
+
+         <v-text-field
+          label="genre"
+          :rules="[required]"
+          value="genre"
+          v-model="genre"
+          >
+        </v-text-field>
+
+         <v-text-field
+          label="album"
+          :rules="[required]"
+          value="album"
+          v-model="album"
+          >
+        </v-text-field>
+
+         <v-text-field
+          label="albumImage"
+          :rules="[required]"
+          value="albumImage"
+          v-model="albumImage"
+          >
+        </v-text-field>
+
+         <v-text-field
+          label="youtubeId"
+          :rules="[required]"
+          value="youtubeId"
+          v-model="youtubeId"
+          >
+        </v-text-field>
       </panel>
     </v-flex>
 
@@ -17,20 +57,25 @@
         <v-text-field
           label="tabs"
           multi-line
-          v-model="song.tab">
+          :rules="[required]"
+          v-model="tab">
         </v-text-field>
 
         <v-text-field
           label="lyrics"
           multi-line
-          v-model="song.lyrics">
+          :rules="[required]"
+          v-model="lyrics">
         </v-text-field>
       </panel>
 
       <app-alert v-if="error" :text="error" @dismissed="onDismissed" />
 
-      <v-btn dark class="cyan" @click="saveForm">
+      <v-btn v-if="typeForm" dark class="cyan" @click="saveForm">
         save
+      </v-btn>
+      <v-btn v-else dark class="cyan" @click="saveForm">
+        create
       </v-btn>
     </v-flex>
   </v-layout>
@@ -41,27 +86,37 @@ const Panel = () => import('@/components/Shared/Panel')
 const AppAlert = () => import('@/components/Shared/Alert')
 
 export default {
-  props: ['value'],
+  props: ['name', 'value'],
 
   created () {
     if (this.value) {
-      this.song = this.value
+      this.id = this.value.id
+      this.typeForm = this.name
+      this.title = this.value.title
+      this.artist = this.value.artist
+      this.genre = this.value.genre
+      this.album = this.value.album
+      this.albumImage = this.value.albumImage
+      this.youtubeId = this.value.youtubeId
+      this.lyrics = this.value.lyrics
+      this.tab = this.value.tab
     }
   },
 
   data () {
     return {
-      song: {
-        title: null,
-        artist: null,
-        genre: null,
-        album: null,
-        albumImage: null,
-        youtubeId: null,
-        lyrics: null,
-        tab: null
-      },
-      error: null
+      id: null,
+      title: null,
+      artist: null,
+      genre: null,
+      album: null,
+      albumImage: null,
+      youtubeId: null,
+      lyrics: null,
+      tab: null,
+      error: null,
+      typeForm: '',
+      required: (value) => !!value || 'Required.'
     }
   },
 
@@ -72,40 +127,34 @@ export default {
 
   methods: {
     saveForm () {
-      this.$emit('save', this.song)
-    },
-    initialSubmit (name, value) {
-      let list = this.listFieldMeta
-      list.map((field) => {
-        if (field.name === name) {
-          this.song[field.name] = value
-        }
-      })
+      if (this.typeForm === 'edit') {
+        this.$emit('edit', {
+          id: this.id,
+          title: this.title,
+          artist: this.artist,
+          genre: this.genre,
+          album: this.album,
+          albumImage: this.albumImage,
+          youtubeId: this.youtubeId,
+          lyrics: this.lyrics,
+          tab: this.tab
+        })
+      } else {
+        this.$emit('create', {
+          title: this.title,
+          artist: this.artist,
+          genre: this.genre,
+          album: this.album,
+          albumImage: this.albumImage,
+          youtubeId: this.youtubeId,
+          lyrics: this.lyrics,
+          tab: this.tab
+        })
+      }
     }
   },
-
-  computed: {
-    listFieldMeta () {
-      let field = [
-        { name: 'title' },
-        { name: 'artist' },
-        { name: 'genre' },
-        { name: 'album' },
-        { name: 'albumImage' },
-        { name: 'youtubeId' }
-      ]
-
-      return field
-    },
-
-    listFieldsStruct () {
-      let field = [
-        { name: 'tab' },
-        { name: 'lyrics' }
-      ]
-
-      return field
-    }
+  onDismissed () {
+    this.error = null
   }
 }
 </script>
