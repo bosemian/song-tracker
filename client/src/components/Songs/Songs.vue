@@ -28,7 +28,8 @@
 
               <router-link
                 tag="span"
-                :to="{name: 'view-song', params: { id: song.id }}">
+                :to="{name: 'view-song', params: { id: song.id }}"
+                exact>
                 <v-btn dark class="cyan">view</v-btn>
               </router-link>
             </v-flex>
@@ -45,7 +46,7 @@
 
 <script>
 import { Song } from '@/services'
-const Panel = () => import('@/components/Panel')
+const Panel = () => import('@/components/Shared/Panel')
 
 export default {
   components: {
@@ -60,7 +61,7 @@ export default {
 
   async created () {
     // do a request to the backend
-    this.songs = (await Song.index()).data
+    this.songs = await Song.index()
   }
 }
 </script>

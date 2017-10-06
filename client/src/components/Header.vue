@@ -6,7 +6,7 @@
 
     <v-toolbar-items>
       <v-btn flat dark :to="'/songs'">
-        Browse
+        Browser
       </v-btn>
     </v-toolbar-items>
 
@@ -14,6 +14,7 @@
 
     <v-toolbar-items>
       <v-btn
+        v-if="!userIsAuth"
         flat dark
         v-for="item in menuItems"
         :key="item.title"
@@ -46,7 +47,7 @@ export default {
       return menuItems
     },
     userIsAuth () {
-      return this.$store.getters.getCurrentUser.isUserLoggedIn
+      return localStorage.getItem('token')
     }
 
   },

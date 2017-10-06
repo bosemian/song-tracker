@@ -12,7 +12,7 @@
 <script>
 import { Auth } from '@/services'
 const Form = () => import('@/components/Auth/Form')
-const Panel = () => import('@/components/Panel')
+const Panel = () => import('@/components/Shared/Panel')
 
 export default {
   beforeRouteEnter: (to, from, next) => {
@@ -21,12 +21,6 @@ export default {
       return
     }
     next()
-  },
-
-  computed: {
-    isAuth () {
-      return this.$store.getters.getCurrentUser.isUserLoggedIn
-    }
   },
 
   components: {

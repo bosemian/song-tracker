@@ -38,7 +38,7 @@
 
 <script>
 import { Song } from '@/services'
-const Panel = () => import('@/components/Panel')
+const Panel = () => import('@/components/Shared/Panel')
 const AppAlert = () => import('@/components/Shared/Alert')
 
 export default {
