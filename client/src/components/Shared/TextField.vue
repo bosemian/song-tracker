@@ -9,7 +9,13 @@
 
 <script>
 export default {
-  props: ['name', 'value', 'error'],
+  props: ['name', 'song', 'error'],
+
+  created () {
+    if (this.song) {
+      this.dataProp = this.song
+    }
+  },
 
   data () {
     return {

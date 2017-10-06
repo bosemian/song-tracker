@@ -14,8 +14,13 @@ const show = (songId) => {
     .then((res) => res.data)
 }
 
+const put = (song) => {
+  return api().put(`songs/${song.id}`, song)
+}
+
 export default {
   index,
   post,
-  show
+  show,
+  put
 }

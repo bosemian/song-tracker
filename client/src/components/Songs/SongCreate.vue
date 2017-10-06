@@ -6,8 +6,7 @@
           :key="field.name"
           v-for="field in listField"
           :name="field.name"
-          @update="initialSubmit"
-          v-model="song">
+          @update="initialSubmit">
         </app-text-field>
       </panel>
     </v-flex>
@@ -42,14 +41,6 @@ const Panel = () => import('@/components/Shared/Panel')
 const AppAlert = () => import('@/components/Shared/Alert')
 
 export default {
-  //  beforeRouteEnter: (to, from, next) => {
-  //   // TODO check state from user if null redirect to login
-  //   if (!this.isAuth) {
-  //     next({ path: '/login', query: { redirect: to.fullPath } })
-  //     return
-  //   }
-  //   next()
-  // },
   components: {
     Panel,
     AppAlert

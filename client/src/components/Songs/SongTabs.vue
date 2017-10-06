@@ -1,9 +1,9 @@
 <template>
   <panel title="Lyrics">
     <textarea
-      v-if="song.tabs"
+      v-if="song.tab"
       readonly
-      v-model="song.tabs">
+      v-model="song.tab">
     </textarea>
 
     <textarea

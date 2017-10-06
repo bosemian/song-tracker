@@ -11,6 +11,13 @@
         <div class="song-genre">
           {{ song.genre }}
         </div>
+
+        <router-link
+          tag="span"
+          :to="{name: 'song-edit', params: { id: song.id }}"
+          exact>
+          <v-btn dark class="amber">Edit</v-btn>
+        </router-link>
       </v-flex>
 
       <v-flex xs6>

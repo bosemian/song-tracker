@@ -22,7 +22,7 @@ module.exports = {
     } catch (err) {
       // error unexpected
       res.status(500).send({
-        error: 'an error has occurred trying to fetch the songs'
+        error: 'an error has occurred trying to show the songs'
       })
     }
   },
@@ -35,6 +35,22 @@ module.exports = {
       // error unexpected
       res.status(500).send({
         error: 'an error has occurred trying to create the songs'
+      })
+    }
+  },
+
+  async put (req, res) {
+    try {
+      await Song.update(req.body, {
+        where: {
+          id: req.params.songId
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      // error unexpected
+      res.status(500).send({
+        error: 'an error has occurred trying to update the songs'
       })
     }
   }

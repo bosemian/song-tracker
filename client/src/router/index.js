@@ -50,14 +50,14 @@ const router = new Router({
     {
       path: '/songs/:id/edit',
       name: 'song-edit',
-      component: SongEdit
+      component: SongEdit,
+      meta: { requiresAuth: true }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(x => x.meta.requiresAuth)) {
-    console.log('work')
     if (!localStorage.getItem('token')) {
       next({ path: '/login', query: { redirect: to.fullPath } })
       return

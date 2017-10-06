@@ -41,8 +41,12 @@ export default {
 
   async created () {
     const songId = this.$store.state.route.params.id
-    const song = await Song.show(songId)
-    this.song = song
+    try {
+      const song = await Song.show(songId)
+      this.song = song
+    } catch (err) {
+      console.log(err)
+    }
   },
 
   data () {

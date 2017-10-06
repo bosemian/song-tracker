@@ -28,7 +28,7 @@
 
               <router-link
                 tag="span"
-                :to="{name: 'view-song', params: { id: song.id }}"
+                :to="{name: 'song-view', params: { id: song.id }}"
                 exact>
                 <v-btn dark class="cyan">view</v-btn>
               </router-link>
