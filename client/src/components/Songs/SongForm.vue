@@ -86,21 +86,14 @@ const Panel = () => import('@/components/Shared/Panel')
 const AppAlert = () => import('@/components/Shared/Alert')
 
 export default {
-  props: ['name', 'value'],
+  props: ['value', 'name'],
 
   created () {
-    if (this.value) {
-      this.id = this.value.id
-      this.typeForm = this.name
-      this.title = this.value.title
-      this.artist = this.value.artist
-      this.genre = this.value.genre
-      this.album = this.value.album
-      this.albumImage = this.value.albumImage
-      this.youtubeId = this.value.youtubeId
-      this.lyrics = this.value.lyrics
-      this.tab = this.value.tab
-    }
+    this.reload()
+  },
+
+  watch: {
+    value: 'reload'
   },
 
   data () {
@@ -126,6 +119,20 @@ export default {
   },
 
   methods: {
+    reload () {
+      if (this.value) {
+        this.id = this.value.id
+        this.typeForm = this.name
+        this.title = this.value.title
+        this.artist = this.value.artist
+        this.genre = this.value.genre
+        this.album = this.value.album
+        this.albumImage = this.value.albumImage
+        this.youtubeId = this.value.youtubeId
+        this.lyrics = this.value.lyrics
+        this.tab = this.value.tab
+      }
+    },
     saveForm () {
       if (this.typeForm === 'edit') {
         this.$emit('edit', {

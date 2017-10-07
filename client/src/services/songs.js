@@ -16,6 +16,7 @@ const show = (songId) => {
 
 const put = (song) => {
   return api().put(`songs/${song.id}`, song)
+    .then((res) => res.data)
 }
 
 export default {

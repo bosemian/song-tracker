@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <song-form @edit="save" name="edit" v-model="song"></song-form>
+    <song-form @edit="save" v-model="song" name="edit"></song-form>
   </v-layout>
 </template>
 
@@ -15,7 +15,17 @@ export default {
 
   data () {
     return {
-      song: null
+      song: {
+        id: null,
+        title: null,
+        artist: null,
+        genre: null,
+        album: null,
+        albumImage: null,
+        youtubeId: null,
+        lyrics: null,
+        tab: null
+      }
     }
   },
 
@@ -32,16 +42,16 @@ export default {
   methods: {
     async save (song) {
       const allField = Object
-        .keys(this.song)
-        .every(key => !!this.song[key])
+        .keys(song)
+        .every(key => !!song[key])
       if (!allField) {
         this.error = 'Please fill in all the required fills.'
         return
       }
       try {
-        await Song.put(song)
-        const songId = this.$store.state.route.params.id
-        this.$router.push({ name: 'song-view', params: { id: songId } })
+        const res = await Song.put(song)
+        // const songId = this.$store.state.route.params.id
+        this.$router.push({ name: 'song-view', params: { id: res.id } })
       } catch (error) {
         console.log(error)
       }
