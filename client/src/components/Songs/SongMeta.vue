@@ -13,6 +13,7 @@
         </div>
 
         <router-link
+          v-if="isUserLoggedIn"
           tag="span"
           :to="{name: 'song-edit', params: { id: song.id }}"
           exact>
@@ -20,18 +21,18 @@
         </router-link>
 
         <v-btn
-          v-if="isUserLoggedIn && !isBookmarked"
+          v-if="isUserLoggedIn && !bookmark"
           dark
-          class="cyan"
-          @click="bookmark">
+          class="green"
+          @click="setBookmark">
           Bookmark
         </v-btn>
 
         <v-btn
-          v-if="isUserLoggedIn && isBookmarked"
+          v-if="isUserLoggedIn && bookmark"
           dark
-          class="cyan"
-          @click="unbookmark">
+          class="red"
+          @click="unSetBookmark">
           Unbookmark
         </v-btn>
       </v-flex>
@@ -67,20 +68,12 @@ export default {
 
   data () {
     return {
-      isBookmarked: false
+      bookmark: null
     }
   },
 
   async created () {
-    try {
-      const bookmark = await BookMark.index({
-        songId: this.songs.id,
-        userId: this.$store.state.user.id
-      })
-      this.isBookmarked = !!bookmark
-    } catch (err) {
-      console.log(err)
-    }
+    this.reload()
   },
 
   computed: {
@@ -89,23 +82,38 @@ export default {
     ])
   },
 
+  watch: {
+    song: 'reload'
+  },
+
   methods: {
-    async bookmark () {
+    async reload () {
+      if (!this.isUserLoggedIn) {
+        return
+      }
       try {
-        await BookMark.post({
-          songId: this.songs.id,
+        this.bookmark = await BookMark.index({
+          songId: this.song.id,
           userId: this.$store.state.user.id
         })
       } catch (err) {
         console.log(err)
       }
     },
-    async unbookmark () {
+    async setBookmark () {
       try {
-        await BookMark.del({
-          songId: this.songs.id,
+        this.bookmark = await BookMark.post({
+          songId: this.song.id,
           userId: this.$store.state.user.id
         })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async unSetBookmark () {
+      try {
+        await BookMark.del(this.bookmark.id)
+        this.bookmark = null
       } catch (err) {
         console.log(err)
       }

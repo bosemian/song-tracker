@@ -8,14 +8,12 @@ const index = (bookmark) => {
 }
 
 const post = (bookmark) => {
-  return api().post('bookmarks', {
-    params: bookmark
-  })
+  return api().post('bookmarks', bookmark)
     .then((res) => res.data)
 }
 
 const del = (bookmarkId) => {
-  return api().get(`bookmarks/${bookmarkId}`)
+  return api().delete(`bookmarks/${bookmarkId}`)
 }
 
 export default {
