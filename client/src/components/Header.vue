@@ -61,7 +61,7 @@ export default {
       this.$store.dispatch('setUser', null)
       localStorage.removeItem('token')
       // TODO Redirect to homepage
-      this.$router.push('/')
+      this.$router.push('/songs')
     }
   }
 }
@@ -70,5 +70,9 @@ export default {
 <style scoped>
 .tab-tracker {
   cursor: pointer;
+}
+
+.tab-tracker:hover {
+  color: #E9E;
 }
 </style>

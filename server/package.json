@@ -6,7 +6,7 @@
     "start": "nodemon src/app.js --exec  \"npm run standard && node\"",
     "standard": "standard **/*.js",
     "lint:fix": "eslint src/**/*.js  --fix",
-    "seed": "node seed"
+    "seed": "node ./seed"
   },
   "license": "MIT",
   "dependencies": {

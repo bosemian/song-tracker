@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Hello = () => import('@/components/Hello')
 const Register = () => import('@/components/Auth/FormRegister')
 const Login = () => import('@/components/Auth/FormLogin')
 const Songs = () => import('@/components/Songs/Songs')
@@ -12,12 +11,8 @@ const SongEdit = () => import('@/components/Songs/SongEdit')
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
     {
       path: '/register',
       name: 'register',
@@ -52,6 +47,10 @@ const router = new Router({
       name: 'song-edit',
       component: SongEdit,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '*',
+      redirect: '/songs'
     }
   ]
 })

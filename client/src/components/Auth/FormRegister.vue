@@ -43,6 +43,7 @@ export default {
         const res = await Auth.register({ email, password })
         this.$store.dispatch('setToken', res.data.token)
         this.$store.dispatch('setUser', res.data.user)
+        this.$router.push('/songs')
       } catch (err) {
         this.error = err.response.data.error
       }
