@@ -1,7 +1,11 @@
 import api from '@/services/api'
 
-const index = () => {
-  return api().get('songs')
+const index = (search) => {
+  return api().get('songs', {
+    params: {
+      search: search
+    }
+  })
     .then((res) => res.data)
 }
 

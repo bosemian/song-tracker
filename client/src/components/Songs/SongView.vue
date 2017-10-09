@@ -24,7 +24,6 @@
 
 <script>
 import { Song } from '@/services'
-const Panel = () => import('@/components/Shared/Panel')
 const SongMeta = () => import('@/components/Songs/SongMeta')
 const SongYouTube = () => import('@/components/Songs/SongYouTube')
 const SongLyrics = () => import('@/components/Songs/SongLyrics')
@@ -32,7 +31,6 @@ const SongTabs = () => import('@/components/Songs/SongTabs')
 
 export default {
   components: {
-    Panel,
     SongMeta,
     SongYouTube,
     SongLyrics,

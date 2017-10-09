@@ -30,7 +30,7 @@ const router = new Router({
     },
     {
       path: '/songs',
-      name: 'song',
+      name: 'songs',
       component: Songs,
       children: [
 

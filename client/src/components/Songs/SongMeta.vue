@@ -30,12 +30,7 @@
 </template>
 
 <script>
-const Panel = () => import('@/components/Shared/Panel')
 export default {
-  components: {
-    Panel
-  },
-
   props: {
     song: {
       type: Object,

@@ -12,7 +12,6 @@
 <script>
 import { Auth } from '@/services'
 const Form = () => import('@/components/Auth/Form')
-const Panel = () => import('@/components/Shared/Panel')
 
 export default {
   beforeRouteEnter: (to, from, next) => {
@@ -24,8 +23,7 @@ export default {
   },
 
   components: {
-    FormAuth: Form,
-    Panel
+    FormAuth: Form
   },
 
   data () {

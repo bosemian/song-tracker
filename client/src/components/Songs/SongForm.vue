@@ -82,7 +82,6 @@
 </template>
 
 <script>
-const Panel = () => import('@/components/Shared/Panel')
 const AppAlert = () => import('@/components/Shared/Alert')
 
 export default {
@@ -114,7 +113,6 @@ export default {
   },
 
   components: {
-    Panel,
     AppAlert
   },
 

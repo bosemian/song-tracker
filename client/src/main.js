@@ -9,6 +9,7 @@ import VueYouTubeEmbed from 'vue-youtube-embed'
 
 const Alert = () => import('@/components/Shared/Alert')
 const TextField = () => import('@/components/Shared/TextField')
+const Panel = () => import('@/components/Shared/Panel')
 
 Vue.config.productionTip = false
 
@@ -19,6 +20,7 @@ sync(store, router)
 
 Vue.component('app-alert', Alert)
 Vue.component('app-text-field', TextField)
+Vue.component('panel', Panel)
 
 /* eslint-disable no-new */
 new Vue({

@@ -15,7 +15,6 @@
 </template>
 
 <script>
-const Panel = () => import('@/components/Shared/Panel')
 
 export default {
   props: {
@@ -31,10 +30,6 @@ export default {
         ].indexOf(value) !== -1
       }
     }
-  },
-
-  components: {
-    Panel
   }
 }
 </script>
