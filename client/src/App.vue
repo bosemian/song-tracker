@@ -14,6 +14,16 @@
 <script>
 export default {
   name: 'app',
+
+  created () {
+    if (localStorage.getItem('token')) {
+      this.$store.state.token = localStorage.getItem('token')
+      this.$store.state.user.id = localStorage.getItem('id')
+      this.$store.state.token.email = localStorage.getItem('email')
+      this.$store.state.token.isUserLoggedIn = true
+    }
+  },
+
   components: {
     PageHeader: () => import('@/components/Header')
   }

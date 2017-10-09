@@ -18,6 +18,22 @@
           exact>
           <v-btn dark class="amber">Edit</v-btn>
         </router-link>
+
+        <v-btn
+          v-if="isUserLoggedIn && !isBookmarked"
+          dark
+          class="cyan"
+          @click="bookmark">
+          Bookmark
+        </v-btn>
+
+        <v-btn
+          v-if="isUserLoggedIn && isBookmarked"
+          dark
+          class="cyan"
+          @click="unbookmark">
+          Unbookmark
+        </v-btn>
       </v-flex>
 
       <v-flex xs6>
@@ -30,6 +46,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { BookMark } from '@/services'
+
 export default {
   props: {
     song: {
@@ -42,6 +61,53 @@ export default {
           'version-conflict',
           'error'
         ].indexOf(value) !== -1
+      }
+    }
+  },
+
+  data () {
+    return {
+      isBookmarked: false
+    }
+  },
+
+  async created () {
+    try {
+      const bookmark = await BookMark.index({
+        songId: this.songs.id,
+        userId: this.$store.state.user.id
+      })
+      this.isBookmarked = !!bookmark
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
+
+  methods: {
+    async bookmark () {
+      try {
+        await BookMark.post({
+          songId: this.songs.id,
+          userId: this.$store.state.user.id
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async unbookmark () {
+      try {
+        await BookMark.del({
+          songId: this.songs.id,
+          userId: this.$store.state.user.id
+        })
+      } catch (err) {
+        console.log(err)
       }
     }
   }

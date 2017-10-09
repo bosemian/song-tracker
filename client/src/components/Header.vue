@@ -34,6 +34,12 @@
 <script>
 
 export default {
+  wathed: {
+    menuItems (value) {
+      console.log(value)
+    }
+  },
+
   computed: {
     menuItems () {
       let menuItems = [
@@ -47,7 +53,7 @@ export default {
       return menuItems
     },
     userIsAuth () {
-      return localStorage.getItem('token')
+      return this.$store.state.isUserLoggedIn
     }
 
   },
