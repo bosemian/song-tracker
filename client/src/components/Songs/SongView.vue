@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { Song } from '@/services'
+import { mapState } from 'vuex'
+import { Song, SongHistory } from '@/services'
 const SongMeta = () => import('@/components/Songs/SongMeta')
 const SongYouTube = () => import('@/components/Songs/SongYouTube')
 const SongLyrics = () => import('@/components/Songs/SongLyrics')
@@ -37,13 +38,27 @@ export default {
     SongTabs
   },
 
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user',
+      'route'
+    ])
+  },
+
   async created () {
-    const songId = this.$store.state.route.params.id
+    const songId = this.route.params.id
     try {
       const song = await Song.show(songId)
       this.song = song
     } catch (err) {
       console.log(err)
+    }
+    if (this.isUserLoggedIn) {
+      await SongHistory.post({
+        songId: songId,
+        userId: this.user.id
+      })
     }
   },
 
@@ -54,6 +69,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>
