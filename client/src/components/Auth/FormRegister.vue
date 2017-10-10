@@ -15,7 +15,7 @@ const Form = () => import('@/components/Auth/Form')
 
 export default {
   beforeRouteEnter: (to, from, next) => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('vuex')) {
       next(to.query.redirect || '/')
       return
     }

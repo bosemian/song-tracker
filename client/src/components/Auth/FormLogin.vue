@@ -15,7 +15,7 @@ const Form = () => import('@/components/Auth/Form')
 
 export default {
   beforeRouteEnter: (to, from, next) => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('vuex')) {
       next(to.query.redirect || '/')
       return
     }
@@ -42,9 +42,6 @@ export default {
         const { email, password } = this.form
         const res = await Auth.login({ email, password })
         this.$store.dispatch('setToken', res.data.token)
-        localStorage.setItem('token', res.data.token)
-        localStorage.setItem('id', res.data.user.id)
-        localStorage.setItem('email', res.data.user.email)
         this.$store.dispatch('setUser', res.data.user)
         this.$router.replace(this.$route.query.redirect || '/')
       } catch (err) {

@@ -59,7 +59,6 @@ export default {
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
-      localStorage.removeItem('token')
       // TODO Redirect to homepage
       this.$router.push('/songs')
     }

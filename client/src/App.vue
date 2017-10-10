@@ -15,16 +15,6 @@
 export default {
   name: 'app',
 
-  created () {
-    if (localStorage.getItem('token')) {
-      this.$store.dispatch('setToken', localStorage.getItem('token'))
-      this.$store.dispatch('setUser', {
-        id: localStorage.getItem('id'),
-        email: localStorage.getItem('email')
-      })
-    }
-  },
-
   components: {
     PageHeader: () => import('@/components/Header')
   }
