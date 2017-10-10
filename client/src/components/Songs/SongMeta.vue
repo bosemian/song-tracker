@@ -83,7 +83,8 @@ export default {
   },
 
   watch: {
-    song: 'reload'
+    song: 'reload',
+    bookmark: 'reloadBookmark'
   },
 
   methods: {
@@ -92,10 +93,7 @@ export default {
         return
       }
       try {
-        this.bookmark = await BookMark.index({
-          songId: this.song.id,
-          userId: this.$store.state.user.id
-        })
+        this.reloadBookmark()
       } catch (err) {
         console.log(err)
       }
@@ -116,6 +114,21 @@ export default {
         this.bookmark = null
       } catch (err) {
         console.log(err)
+      }
+    },
+    async reloadBookmark () {
+      const bookmarks = await BookMark.index({
+        songId: this.song.id,
+        userId: this.$store.state.user.id
+      })
+      if (bookmarks.length) {
+        bookmarks
+          .filter((bk) => {
+            return this.song.id === bk.SongId
+          })
+          .map((bk) => {
+            this.bookmark = bk
+          })
       }
     }
   }

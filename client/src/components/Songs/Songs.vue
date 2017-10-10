@@ -1,8 +1,11 @@
 <template>
-  <v-layout column>
-    <v-flex xs6 offset-xs3>
+  <v-layout>
+    <v-flex xs6>
+      <song-bookmark></song-bookmark>
+    </v-flex>
+    <v-flex xs6 class="ml-2">
       <song-search></song-search>
-      <songs-panel :songs="songs"></songs-panel>
+      <songs-panel class="mt-2" :songs="songs"></songs-panel>
     </v-flex>
   </v-layout>
 </template>
@@ -11,11 +14,13 @@
 import { Song } from '@/services'
 const SongSearch = () => import('@/components/Songs/SongSearch')
 const SongsPanel = () => import('@/components/Songs/SongsPanel')
+const SongBookmark = () => import('@/components/Songs/SongBookmark')
 
 export default {
   components: {
+    SongSearch,
     SongsPanel,
-    SongSearch
+    SongBookmark
   },
 
   data () {
@@ -25,7 +30,6 @@ export default {
   },
 
   async created () {
-    // do a request to the backend
     this.songs = await Song.index()
   }
 }
