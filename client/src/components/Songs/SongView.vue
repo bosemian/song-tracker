@@ -56,8 +56,7 @@ export default {
     }
     if (this.isUserLoggedIn) {
       await SongHistory.post({
-        songId: songId,
-        userId: this.user.id
+        songId: songId
       })
     }
   },

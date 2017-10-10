@@ -50,9 +50,7 @@ export default {
 
   async created () {
     if (this.isUserLoggedIn) {
-      this.bookmarks = await BookMark.index({
-        userId: this.user.id
-      })
+      this.bookmarks = await BookMark.index()
     }
   }
 }

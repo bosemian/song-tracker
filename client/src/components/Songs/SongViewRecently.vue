@@ -50,10 +50,7 @@ export default {
 
   async created () {
     if (this.isUserLoggedIn) {
-      const histories = await SongHistory.index({
-        userId: this.user.id
-      })
-      this.histories = histories
+      this.histories = await SongHistory.index()
     }
   }
 }

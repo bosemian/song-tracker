@@ -34,12 +34,6 @@
 <script>
 
 export default {
-  wathed: {
-    menuItems (value) {
-      console.log(value)
-    }
-  },
-
   computed: {
     menuItems () {
       let menuItems = [
