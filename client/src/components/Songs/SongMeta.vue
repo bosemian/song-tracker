@@ -101,8 +101,7 @@ export default {
     async setBookmark () {
       try {
         this.bookmark = await BookMark.post({
-          songId: this.song.id,
-          userId: this.$store.state.user.id
+          songId: this.song.id
         })
       } catch (err) {
         console.log(err)
